@@ -108,6 +108,7 @@ M.get_bibliography_paths = function(bufnr)
 end
 
 local read_file = function(url)
+  url = Path.new(url):expand() -- Handle ~ in path
   if not url:match("^/") then
     url = Path.new(vim.api.nvim_buf_get_name(0)):parent():joinpath(url):absolute()
   end
