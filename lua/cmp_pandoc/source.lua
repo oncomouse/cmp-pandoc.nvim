@@ -8,7 +8,7 @@ local source = {
 source.new = function(overrides)
   local self = setmetatable({}, { __index = source })
 
-  self.opts = vim.tbl_extend("force", config, overrides or {})
+  self.opts = vim.tbl_deep_extend("force", config, overrides or {})
   return self
 end
 
