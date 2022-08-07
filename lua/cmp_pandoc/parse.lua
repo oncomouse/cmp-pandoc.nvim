@@ -108,7 +108,7 @@ M.get_bibliography_paths = function(bufnr)
 end
 
 local read_file = function(url)
-  if not url:sub(1, 1) == "/" then
+  if not url:match("^/") then
     url = Path.new(vim.api.nvim_buf_get_name(0)):parent():joinpath(url):absolute()
   end
 
@@ -148,13 +148,13 @@ local citations = function(path, opts)
 end
 
 M.bibliography = function(bufnr, opts)
-  local bib_paths
+  local bib_paths = {}
 
   if opts.global.enable then
-    bib_paths = opts.global.paths
+    bib_paths = vim.list_extend(bib_paths, opts.global.paths or {})
   end
   if not opts.global.enable or opts.global.extend then
-    bib_paths = M.get_bibliography_paths(bufnr)
+    bib_paths = vim.list_extend(bib_paths, M.get_bibliography_paths(bufnr) or {})
   end
 
   if not bib_paths then
