@@ -148,7 +148,14 @@ local citations = function(path, opts)
 end
 
 M.bibliography = function(bufnr, opts)
-  local bib_paths = M.get_bibliography_paths(bufnr)
+  local bib_paths
+
+  if opts.global.enable then
+    bib_paths = opts.global.paths
+  end
+  if not opts.global.enable or opts.global.extend then
+    bib_paths = M.get_bibliography_paths(bufnr)
+  end
 
   if not bib_paths then
     return

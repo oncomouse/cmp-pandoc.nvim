@@ -11,6 +11,14 @@ return {
     -- Fields to show in documentation
     -- @type: table of string
     fields = { "type", "title", "author", "year" },
+    global = {
+      -- @type: boolean
+      enable = false,
+      -- @type: boolean
+      extend = true,
+      -- @type: table of string
+      paths = {},
+    },
   },
   -- Crossref
   crossref = {
