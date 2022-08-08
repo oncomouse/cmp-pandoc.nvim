@@ -1,4 +1,3 @@
-local Path = require("plenary.path")
 local utils = require("cmp_pandoc.utils")
 
 local M = {}
@@ -108,12 +107,9 @@ M.get_bibliography_paths = function(bufnr)
 end
 
 local read_file = function(url)
-  url = Path.new(url):expand() -- Handle ~ in path
-  if not url:match("^/") then
-    url = Path.new(vim.api.nvim_buf_get_name(0)):parent():joinpath(url):absolute()
-  end
+  url = vim.fn.fnamemodify(url, ":p")
 
-  if Path:new(url):exists() then
+  if vim.fn.filereadable(url) then
     local file = io.open(url, "rb")
     local results = file:read("*all")
     file:close()
